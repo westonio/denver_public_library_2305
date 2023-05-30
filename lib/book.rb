@@ -17,7 +17,11 @@ class Book
 
   def publication_year
     string = info[:publication_date]
-    Date.parse(string).year
+    if string.length == 4
+      string
+    else
+      Date.parse(string).year.to_s
+    end
   end
 
 
