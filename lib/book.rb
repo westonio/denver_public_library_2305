@@ -1,10 +1,11 @@
 require 'date'
 
 class Book
-  attr_reader :info
+  attr_reader :info, :times_checked_out
 
   def initialize(info)
     @info = info
+    @times_checked_out = 0
   end
 
   def title
@@ -24,5 +25,7 @@ class Book
     end
   end
 
-
+  def count_check_out
+    @times_checked_out += 1
+  end
 end 

@@ -20,4 +20,11 @@ RSpec.describe Book do
   it 'has a publication year' do
     expect(@book.publication_year).to eq("1960")
   end
+
+  it 'can track how many times it has been checked out' do
+    expect(@book.times_checked_out).to eq(0)
+
+    5.times {@book.count_check_out}
+    expect(@book.times_checked_out).to eq(5)
+  end
 end

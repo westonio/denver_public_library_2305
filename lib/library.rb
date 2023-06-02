@@ -28,6 +28,7 @@ class Library
 
   def checkout(book)
     if @books.include?(book)
+      book.count_check_out
       @checked_out_books << book
       @books.delete(book)
       true
@@ -43,6 +44,12 @@ class Library
       true
     else
       false
+    end
+  end
+
+  def most_popular_book
+    @books.max_by do |book|
+      book.times_checked_out
     end
   end
 end

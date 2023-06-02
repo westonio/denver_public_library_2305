@@ -95,4 +95,35 @@ RSpec.describe Library do
     expect(@dpl.books).to eq([villette, professor])
     expect(@dpl.checked_out_books).to eq([jane_eyre])
   end
+
+  it 'adds count to the books times_checked_out attribute' do
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1847") 
+    @dpl.add_author(charlotte_bronte)
+
+    expect(jane_eyre.times_checked_out).to eq(0)
+
+    3.times do
+      @dpl.checkout(jane_eyre)
+      @dpl.return(jane_eyre)
+    end
+    expect(jane_eyre.times_checked_out).to eq(3)
+  end
+
+  it 'shows the most popular book' do
+    charlotte_bronte = Author.new({first_name: "Charlotte", last_name: "Bronte"})
+    professor = charlotte_bronte.write("The Professor", "1857")
+    jane_eyre = charlotte_bronte.write("Jane Eyre", "October 16, 1847") 
+    @dpl.add_author(charlotte_bronte)
+
+    5.times do 
+      @dpl.checkout(professor)
+      @dpl.return(professor)
+    end
+    3.times do 
+      @dpl.checkout(jane_eyre)
+      @dpl.return(jane_eyre)
+    end
+    expect(@dpl.most_popular_book).to eq(professor)
+  end
 end
